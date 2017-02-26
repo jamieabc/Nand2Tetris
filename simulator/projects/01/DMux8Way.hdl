@@ -17,4 +17,39 @@ CHIP DMux8Way {
 
     PARTS:
     // Put your code here:
+    Not(in = sel[0], out = ns0);
+    Not(in = sel[1], out = ns1);
+    Not(in = sel[2], out = ns2);
+
+    And(a = ns0, b = ns1, out = tmpA);
+    And(a = tmpA, b = ns2, out = selA);
+    DMux(in = in, sel = selA, b = a);
+
+    And(a = sel[0], b = ns1, out = tmpB);
+    And(a = tmpB, b = ns2, out = selB);
+    DMux(in = in, sel = selB, b = b);
+
+    And(a = ns0, b = sel[1], out = tmpC);
+    And(a = tmpC, b = ns2, out = selC);
+    DMux(in = in, sel = selC, b = c);
+
+    And(a = sel[0], b = sel[1], out = tmpD);
+    And(a = tmpD, b = ns2, out = selD);
+    DMux(in = in, sel = selD, b = d);
+
+    And(a = ns0, b = ns1, out = tmpE);
+    And(a = tmpE, b = sel[2], out = selE);
+    DMux(in = in, sel = selE, b = e);
+
+    And(a = sel[0], b = ns1, out = tmpF);
+    And(a = tmpB, b = sel[2], out = selF);
+    DMux(in = in, sel = selF, b = f);
+
+    And(a = ns0, b = sel[1], out = tmpG);
+    And(a = tmpG, b = sel[2], out = selG);
+    DMux(in = in, sel = selG, b = g);
+
+    And(a = sel[0], b = sel[1], out = tmpH);
+    And(a = tmpH, b = sel[2], out = selH);
+    DMux(in = in, sel = selH, b = h);
 }
