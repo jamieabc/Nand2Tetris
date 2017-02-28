@@ -16,4 +16,29 @@ CHIP RAM8 {
 
     PARTS:
     // Put your code here:
+    // demux address to each bit selection
+    DMux8Way(in = load, sel = address, a = sel0, b = sel1, c = sel2, d = sel3, e = sel4, f = sel5, g = sel6, h = sel7);
+
+    // extract each register load operation
+    And(a = sel0, b = load, out = load0);
+    And(a = sel1, b = load, out = load1);
+    And(a = sel2, b = load, out = load2);
+    And(a = sel3, b = load, out = load3);
+    And(a = sel4, b = load, out = load4);
+    And(a = sel5, b = load, out = load5);
+    And(a = sel6, b = load, out = load6);
+    And(a = sel7, b = load, out = load7);
+
+    Register(in = in, load = load0, out = out0);
+    Register(in = in, load = load1, out = out1);
+    Register(in = in, load = load2, out = out2);
+    Register(in = in, load = load3, out = out3);
+    Register(in = in, load = load4, out = out4);
+    Register(in = in, load = load5, out = out5);
+    Register(in = in, load = load6, out = out6);
+    Register(in = in, load = load7, out = out7);
+
+    // select which register to output
+    Mux8Way16(a = out0, b = out1, c = out2, d = out3, e = out4, f = out5, g = out6, h = out7,
+              sel = address, out = out);
 }
