@@ -17,4 +17,17 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+    // check if any control bit is asserted
+    Or(a = load, b = inc, out = loadOrInc);
+    Or(a = loadOrInc, b = reset, out = control);
+
+    // by test, these input has priority
+    Mux16(a = outVal, b = increased, sel = inc, out = incVal);
+    Mux16(a = incVal, b = in, sel = load, out = loadVal);
+    Mux16(a = loadVal, b = false, sel = reset, out = regInputVal);
+
+    // increase 1
+    Inc16(in = outVal, out = increased);
+
+    Register(in = regInputVal, load = control, out = out, out = outVal);
 }
