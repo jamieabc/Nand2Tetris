@@ -15,4 +15,7 @@ CHIP Bit {
 
     PARTS:
     // Put your code here:
+    Not(in = load, out = nLoad);
+    Mux(a = in, b = out1, sel = nLoad, out = val);
+    DFF(in = val, out = out, out = out1);
 }
